@@ -1,3 +1,6 @@
 import "./style.css";
+import * as THREE from "three";
 
-console.log1("Hello Vite!");
+console.log(THREE);
+
+console.log("Hello Vite!");
