@@ -19,7 +19,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 const mesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(1, 1, 1),
+  new THREE.PlaneGeometry(5, 5, 1),
   new THREE.MeshStandardMaterial({ color: 0x000000 }),
 );
 mesh.position.set(0, 0, 0);
@@ -29,9 +29,14 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(3);
 
-const pointLight = new THREE.PointLight("white", 1000);
+const pointLight = new THREE.PointLight("white", 100);
 pointLight.position.set(1, 1, 1);
 scene.add(pointLight);
+const ambientLight = new THREE.AmbientLight("white", 100);
+scene.add(ambientLight);
+const directionalLight = new THREE.DirectionalLight("white", 100);
+directionalLight.position.set(0, 1, 0);
+scene.add(directionalLight);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
