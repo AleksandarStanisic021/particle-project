@@ -29,9 +29,6 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(3);
 
-const ambientLight = new THREE.AmbientLight("white", 20);
-scene.add(ambientLight);
-
 const pointLight = new THREE.PointLight("white", 1000);
 pointLight.position.set(1, 1, 1);
 scene.add(pointLight);
