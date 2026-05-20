@@ -2,10 +2,7 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-console.log(THREE);
 const canvas = document.querySelector("#bg");
-console.log(canvas);
-console.log("Hello Vite!");
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
