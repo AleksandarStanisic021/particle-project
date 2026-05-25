@@ -99,7 +99,7 @@ class Particles {
       size: 0.1,
       sizeAttenuation: true,
       alphaMap: texture,
-      alphaTest: 0.001,
+      alphaTest: 0.002,
       transparent: true,
       vertexColors: true,
     });
