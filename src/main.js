@@ -20,8 +20,13 @@ const mesh = new THREE.Mesh(
   new THREE.MeshStandardMaterial({ color: 0x000000 }),
 );
 mesh.position.set(0, 0, 0);
-scene.add(mesh);
 
+const particleGeometry = new THREE.SphereGeometry(1, 32, 32);
+const particleMaterial = new THREE.MeshStandardMaterial({ color: 0xff00ff });
+const particleMesh = new THREE.Mesh(particleGeometry, particleMaterial);
+scene.add(particleMesh);
+
+scene.add(mesh);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(3);
