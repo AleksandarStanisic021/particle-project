@@ -19,7 +19,7 @@ const textureLoader = new THREE.TextureLoader();
 const m = textureLoader.load("/textures/particles/2.png");
 
 const geometry = new THREE.BufferGeometry();
-const count = 500;
+const count = 1500;
 const positions = new Float32Array(count * 3);
 for (let i = 0; i < count * 3; i++) {
   positions[i] = (Math.random() - 0.5) * 10;
@@ -27,13 +27,19 @@ for (let i = 0; i < count * 3; i++) {
 geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
 const material = new THREE.PointsMaterial({
-  size: 1,
+  size: 0.1,
   sizeAttenuation: true,
   alphaMap: m,
   alphaTest: 0.001,
   transparent: true,
   color: "red",
 });
+
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+const boxMaterial = new THREE.MeshStandardMaterial({ color: "green" });
+const box = new THREE.Mesh(boxGeometry, boxMaterial);
+scene.add(box);
+
 const points = new THREE.Points(geometry, material);
 scene.add(points);
 
