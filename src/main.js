@@ -16,15 +16,22 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 const textureLoader = new THREE.TextureLoader();
-const m = textureLoader.load("/textures/particles/2.png");
+const m = textureLoader.load("/textures/particles/11.png");
 
 const geometry = new THREE.BufferGeometry();
-const count = 1500;
+const count = 11500;
 const positions = new Float32Array(count * 3);
 for (let i = 0; i < count * 3; i++) {
   positions[i] = (Math.random() - 0.5) * 10;
 }
+const colors = new Float32Array(count * 3);
+for (let i = 0; i < count * 3; i += 3) {
+  colors[i] = Math.random();
+  colors[i + 1] = Math.random();
+  colors[i + 2] = Math.random();
+}
 geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
 const material = new THREE.PointsMaterial({
   size: 0.1,
@@ -32,13 +39,8 @@ const material = new THREE.PointsMaterial({
   alphaMap: m,
   alphaTest: 0.001,
   transparent: true,
-  color: "red",
+  vertexColors: true,
 });
-
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-const boxMaterial = new THREE.MeshStandardMaterial({ color: "green" });
-const box = new THREE.Mesh(boxGeometry, boxMaterial);
-scene.add(box);
 
 const points = new THREE.Points(geometry, material);
 scene.add(points);
