@@ -21,6 +21,7 @@ textureLoader.load("/textures/particles/10.png", (texture) => {
   const particleMaterial = new THREE.PointsMaterial({
     size: 0.02,
     sizeAttenuation: true,
+    color: "orange",
     map: texture,
     transparent: true,
   });
