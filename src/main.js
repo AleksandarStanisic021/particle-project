@@ -15,18 +15,14 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
 });
 
-const mesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(5, 5, 1),
-  new THREE.MeshStandardMaterial({ color: 0x000000 }),
-);
-mesh.position.set(0, 0, 0);
-
 const particleGeometry = new THREE.SphereGeometry(1, 32, 32);
-const particleMaterial = new THREE.MeshStandardMaterial({ color: 0xff00ff });
-const particleMesh = new THREE.Mesh(particleGeometry, particleMaterial);
+const particleMaterial = new THREE.PointsMaterial({
+  size: 0.05,
+  attenuation: true,
+});
+const particleMesh = new THREE.Points(particleGeometry, particleMaterial);
 scene.add(particleMesh);
 
-scene.add(mesh);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(3);
