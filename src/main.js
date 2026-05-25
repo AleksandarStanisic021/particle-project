@@ -15,13 +15,18 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
 });
 
-const particleGeometry = new THREE.SphereGeometry(1, 32, 32);
-const particleMaterial = new THREE.PointsMaterial({
-  size: 0.05,
-  attenuation: true,
+const textureLoader = new THREE.TextureLoader();
+textureLoader.load("/textures/particles/10.png", (texture) => {
+  const particleGeometry = new THREE.SphereGeometry(1, 32, 32);
+  const particleMaterial = new THREE.PointsMaterial({
+    size: 0.02,
+    sizeAttenuation: true,
+    map: texture,
+    transparent: true,
+  });
+  const particleMesh = new THREE.Points(particleGeometry, particleMaterial);
+  scene.add(particleMesh);
 });
-const particleMesh = new THREE.Points(particleGeometry, particleMaterial);
-scene.add(particleMesh);
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
