@@ -16,7 +16,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 const textureLoader = new THREE.TextureLoader();
-const m = textureLoader.load("/textures/particles/10.png");
+const m = textureLoader.load("/textures/particles/2.png");
 
 const geometry = new THREE.BufferGeometry();
 const count = 500;
@@ -27,9 +27,10 @@ for (let i = 0; i < count * 3; i++) {
 geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
 const material = new THREE.PointsMaterial({
-  size: 0.1,
+  size: 1,
   sizeAttenuation: true,
-  map: m,
+  alphaMap: m,
+  alphaTest: 0.001,
   transparent: true,
   color: "red",
 });
