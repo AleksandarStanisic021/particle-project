@@ -11,6 +11,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
+  antialias: true,
 });
 const controls = new OrbitControls(camera, renderer.domElement);
 const pointLight = new THREE.PointLight("white", 5);
