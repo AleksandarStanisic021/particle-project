@@ -1,39 +1,86 @@
 import "./style.css";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+const parameters = {
+  materialColor: "#ffeded",
+};
+
+/**
+ * Base
+ */
+// Canvas
+const canvas = document.querySelector("canvas.webgl");
+console.log(canvas);
+
+// Scene
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000,
+
+/**
+ * Test cube
+ */
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: "#ff0000" }),
 );
-const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector("#bg"),
-  antialias: true,
+scene.add(cube);
+
+/**
+ * Sizes
+ */
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
+window.addEventListener("resize", () => {
+  // Update sizes
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
-const controls = new OrbitControls(camera, renderer.domElement);
-const pointLight = new THREE.PointLight("white", 5);
-pointLight.position.set(1, 1, 1);
-scene.add(pointLight);
-const ambientLight = new THREE.AmbientLight("white", 1);
-scene.add(ambientLight);
 
-const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
-const torus = new THREE.Mesh(geometry, material);
-scene.add(torus);
+/**
+ * Camera
+ */
+// Base camera
+const camera = new THREE.PerspectiveCamera(
+  35,
+  sizes.width / sizes.height,
+  0.1,
+  100,
+);
+camera.position.z = 6;
+scene.add(camera);
 
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(3);
+/**
+ * Renderer
+ */
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+});
+renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-renderer.render(scene, camera);
+/**
+ * Animate
+ */
+const clock = new THREE.Clock();
 
-function animate() {
-  controls.update();
+const tick = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  // Render
   renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
-animate();
+
+  // Call tick again on the next frame
+  window.requestAnimationFrame(tick);
+};
+
+tick();
