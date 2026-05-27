@@ -18,11 +18,23 @@ const scene = new THREE.Scene();
 /**
  * Test cube
  */
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: "#ff0000" }),
+const mesh1 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+  new THREE.MeshBasicMaterial({ color: "red" }),
 );
-scene.add(cube);
+mesh1.position.y = -2;
+scene.add(mesh1);
+const mesh2 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+  new THREE.MeshBasicMaterial({ color: "green" }),
+);
+scene.add(mesh2);
+const mesh3 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+  new THREE.MeshBasicMaterial({ color: "blue" }),
+);
+mesh3.position.y = 2;
+scene.add(mesh3);
 
 /**
  * Sizes
