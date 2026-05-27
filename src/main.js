@@ -19,21 +19,21 @@ const scene = new THREE.Scene();
  * Test cube
  */
 const mesh1 = new THREE.Mesh(
-  new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+  new THREE.TorusGeometry(0.5, 0.3, 16, 100),
   new THREE.MeshBasicMaterial({ color: "red" }),
 );
-mesh1.position.y = -2;
+mesh1.position.y = -1.7;
 scene.add(mesh1);
 const mesh2 = new THREE.Mesh(
-  new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+  new THREE.TorusGeometry(0.5, 0.3, 16, 100),
   new THREE.MeshBasicMaterial({ color: "green" }),
 );
 scene.add(mesh2);
 const mesh3 = new THREE.Mesh(
-  new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+  new THREE.TorusGeometry(0.5, 0.3, 16, 100),
   new THREE.MeshBasicMaterial({ color: "blue" }),
 );
-mesh3.position.y = 2;
+mesh3.position.y = 1.7;
 scene.add(mesh3);
 
 /**
@@ -91,6 +91,9 @@ const tick = () => {
 
   // Render
   renderer.render(scene, camera);
+  mesh1.rotation.x = 0.1 * elapsedTime;
+  mesh2.rotation.x = 0.2 * elapsedTime;
+  mesh3.rotation.x = 0.3 * elapsedTime;
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick);
