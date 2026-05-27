@@ -54,7 +54,9 @@ sphere.receiveShadow = true;
 const clock = new THREE.Clock();
 function animate() {
   const elapsedTime = clock.getElapsedTime();
-
+  sphere.position.x = Math.cos(elapsedTime) * 2;
+  sphere.position.z = Math.sin(elapsedTime) * 2;
+  sphere.position.y = Math.abs(Math.sin(elapsedTime * 3));
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
