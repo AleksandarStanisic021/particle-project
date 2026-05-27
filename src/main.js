@@ -46,6 +46,7 @@ plane.position.y = -1;
 scene.add(plane);
 plane.receiveShadow = true;
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 pointLight.castShadow = true;
 sphere.castShadow = true;
 sphere.receiveShadow = true;
