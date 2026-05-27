@@ -7,14 +7,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  outline: none;
+  z-index: -1;
 }
 
 .section {
   display: flex;
-  align-items: center;
   height: 100vh;
-  position: relative;
+
   font-family: "Cabin", sans-serif;
   color: #ffeded;
   text-transform: uppercase;
