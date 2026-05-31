@@ -1,7 +1,8 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+import CANNON from "cannon";
+console.log(CANNON);
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
@@ -23,9 +24,9 @@ camera.position.z = 3;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-const geometry = new THREE.SphereGeometry(1, 32, 32);
-const material = new THREE.MeshStandardMaterial({});
-const sphere = new THREE.Mesh(geometry, material);
+const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+const material = new THREE.MeshStandardMaterial({ color: "red" });
+const sphere = new THREE.Mesh(sphereGeometry, material);
 scene.add(sphere);
 const pointLight = new THREE.PointLight(0xffffff, 10);
 pointLight.position.set(2, 3, 4);

@@ -12,6 +12,7 @@
     "vite": "^8.0.12"
   },
   "dependencies": {
+    "cannon": "^0.6.2",
     "three": "^0.184.0"
   }
 }
