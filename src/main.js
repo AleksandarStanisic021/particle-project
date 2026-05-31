@@ -6,6 +6,14 @@ import CANNON from "cannon";
 const world = new CANNON.World();
 world.gravity.set(0, -9.82, 0);
 
+const sphereShape = new CANNON.Sphere(1);
+const sphereBody = new CANNON.Body({
+  mass: 1,
+  shape: sphereShape,
+});
+sphereBody.position.set(0, 5, 0);
+world.addBody(sphereBody);
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
@@ -55,11 +63,18 @@ pointLight.castShadow = true;
 sphere.castShadow = true;
 sphere.receiveShadow = true;
 
+let oldElapsedTime = 0;
 const clock = new THREE.Clock();
 function animate() {
   const elapsedTime = clock.getElapsedTime();
+  const deltaTime = elapsedTime - oldElapsedTime;
+  oldElapsedTime = elapsedTime;
 
   controls.update();
+  world.step(1 / 60, deltaTime, 3);
+
+  sphere.position.copy(sphereBody.position);
+
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
