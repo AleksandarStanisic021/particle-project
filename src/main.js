@@ -6,10 +6,20 @@ import CANNON from "cannon";
 const world = new CANNON.World();
 world.gravity.set(0, -9.82, 0);
 
+const defaultMaterial = new CANNON.Material("defaultMaterial");
+
+const contactMaterial = new CANNON.ContactMaterial(
+  defaultMaterial,
+  defaultMaterial,
+  { friction: 0.1, restitution: 0.7 },
+);
+world.addContactMaterial(contactMaterial);
+
 const sphereShape = new CANNON.Sphere(1);
 const sphereBody = new CANNON.Body({
   mass: 1,
   shape: sphereShape,
+  material: defaultMaterial,
 });
 sphereBody.position.set(0, 15, 0);
 world.addBody(sphereBody);
@@ -18,6 +28,7 @@ const planeShape = new CANNON.Plane();
 const planeBody = new CANNON.Body({
   mass: 0,
   shape: planeShape,
+  material: defaultMaterial,
 });
 planeBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 world.addBody(planeBody);
@@ -56,12 +67,12 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
 const planeGeometry = new THREE.PlaneGeometry(100, 100);
-const planeMaterial = new THREE.MeshStandardMaterial({
+const planeMaterial1 = new THREE.MeshStandardMaterial({
   color: "green",
   side: THREE.DoubleSide,
 });
 
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+const plane = new THREE.Mesh(planeGeometry, planeMaterial1);
 plane.rotation.x = -Math.PI / 2;
 plane.position.y = -1;
 scene.add(plane);
@@ -80,6 +91,7 @@ function animate() {
   oldElapsedTime = elapsedTime;
 
   controls.update();
+
   world.step(1 / 60, deltaTime, 3);
   sphere.position.copy(sphereBody.position);
   plane.position.copy(planeBody.position);
