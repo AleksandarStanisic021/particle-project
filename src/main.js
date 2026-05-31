@@ -21,7 +21,8 @@ const sphereBody = new CANNON.Body({
   shape: sphereShape,
   material: defaultMaterial,
 });
-sphereBody.position.set(0, 15, 0);
+sphereBody.position.set(0, 5, 0);
+sphereBody.applyLocalForce(new CANNON.Vec3(15, 0, 0), sphereBody.position);
 world.addBody(sphereBody);
 
 const planeShape = new CANNON.Plane();
