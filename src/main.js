@@ -11,8 +11,16 @@ const sphereBody = new CANNON.Body({
   mass: 1,
   shape: sphereShape,
 });
-sphereBody.position.set(0, 5, 0);
+sphereBody.position.set(0, 15, 0);
 world.addBody(sphereBody);
+
+const planeShape = new CANNON.Plane();
+const planeBody = new CANNON.Body({
+  mass: 0,
+  shape: planeShape,
+});
+planeBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+world.addBody(planeBody);
 
 const scene = new THREE.Scene();
 
@@ -22,7 +30,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100,
 );
-camera.position.z = 3;
+camera.position.z = 14;
+camera.position.y = 5;
 scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({
@@ -48,7 +57,7 @@ scene.add(ambientLight);
 
 const planeGeometry = new THREE.PlaneGeometry(100, 100);
 const planeMaterial = new THREE.MeshStandardMaterial({
-  color: 0x777777,
+  color: "green",
   side: THREE.DoubleSide,
 });
 
@@ -72,8 +81,8 @@ function animate() {
 
   controls.update();
   world.step(1 / 60, deltaTime, 3);
-
   sphere.position.copy(sphereBody.position);
+  plane.position.copy(planeBody.position);
 
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
