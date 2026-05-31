@@ -7,14 +7,15 @@ const world = new CANNON.World();
 world.gravity.set(0, -9.82, 0);
 
 const defaultMaterial = new CANNON.Material("defaultMaterial");
-
+/*
 const contactMaterial = new CANNON.ContactMaterial(
   defaultMaterial,
   defaultMaterial,
   { friction: 0.1, restitution: 0.7 },
 );
 world.addContactMaterial(contactMaterial);
-
+*/
+/*
 const sphereShape = new CANNON.Sphere(1);
 const sphereBody = new CANNON.Body({
   mass: 1,
@@ -24,7 +25,7 @@ const sphereBody = new CANNON.Body({
 sphereBody.position.set(0, 5, 0);
 sphereBody.applyLocalForce(new CANNON.Vec3(15, 0, 0), sphereBody.position);
 world.addBody(sphereBody);
-
+*/
 const planeShape = new CANNON.Plane();
 const planeBody = new CANNON.Body({
   mass: 0,
@@ -56,10 +57,6 @@ camera.position.z = 3;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const material = new THREE.MeshStandardMaterial({ color: "red" });
-const sphere = new THREE.Mesh(sphereGeometry, material);
-scene.add(sphere);
 const pointLight = new THREE.PointLight(0xffffff, 10);
 pointLight.position.set(2, 3, 4);
 scene.add(pointLight);
@@ -79,10 +76,8 @@ plane.position.y = -1;
 scene.add(plane);
 plane.receiveShadow = true;
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap;
 pointLight.castShadow = true;
-sphere.castShadow = true;
-sphere.receiveShadow = true;
 
 let oldElapsedTime = 0;
 const clock = new THREE.Clock();
@@ -94,7 +89,7 @@ function animate() {
   controls.update();
 
   world.step(1 / 60, deltaTime, 3);
-  sphere.position.copy(sphereBody.position);
+
   plane.position.copy(planeBody.position);
 
   renderer.render(scene, camera);
