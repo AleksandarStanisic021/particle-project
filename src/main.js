@@ -5,6 +5,8 @@ import CANNON from "cannon";
 
 const world = new CANNON.World();
 world.gravity.set(0, -9.82, 0);
+world.broadphase = new CANNON.SAPBroadphase(world);
+world.allowSleep = true;
 
 const defaultMaterial = new CANNON.Material("defaultMaterial");
 /*
@@ -93,6 +95,7 @@ const createSphere = (radius, position) => {
   });
   const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
   mesh.castShadow = true;
+  mesh.receiveShadow = true;
   mesh.position.copy(position);
   scene.add(mesh);
 
@@ -108,9 +111,13 @@ const createSphere = (radius, position) => {
   world.addBody(body);
   objectsToUpdate.push({ mesh: mesh, body: body });
 };
-createSphere(1, { x: 1, y: 3, z: 1 });
-createSphere(0.5, { x: 2, y: 3, z: 2 });
-createSphere(0.75, { x: 3, y: 3, z: 3 });
+for (let i = 0; i < 50; i++) {
+  createSphere(Math.random() * 0.5 + 0.5, {
+    x: (Math.random() - 0.5) * 5,
+    y: Math.random() * 5 + 2,
+    z: (Math.random() - 0.5) * 5,
+  });
+}
 
 const createBox = (width, height, depth, position) => {
   const boxGeometry = new THREE.BoxGeometry(width, height, depth);
@@ -121,6 +128,7 @@ const createBox = (width, height, depth, position) => {
   });
   const mesh = new THREE.Mesh(boxGeometry, boxMaterial);
   mesh.castShadow = true;
+  mesh.receiveShadow = true;
   mesh.position.copy(position);
   scene.add(mesh);
 
@@ -137,8 +145,19 @@ const createBox = (width, height, depth, position) => {
   world.addBody(body);
   objectsToUpdate.push({ mesh: mesh, body: body });
 };
-createBox(1, 1, 1, { x: -1, y: 3, z: -1 });
-createBox(1, 2, 2, { x: -2, y: 3, z: -2 });
+
+for (let i = 0; i < 100; i++) {
+  createBox(
+    Math.random() * 0.5 + 0.5,
+    Math.random() * 0.5 + 0.5,
+    Math.random() * 0.5 + 0.5,
+    {
+      x: (Math.random() - 0.5) * 5,
+      y: Math.random() * 5 + 2,
+      z: (Math.random() - 0.5) * 5,
+    },
+  );
+}
 
 let oldElapsedTime = 0;
 const clock = new THREE.Clock();
