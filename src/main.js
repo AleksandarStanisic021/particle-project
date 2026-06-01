@@ -91,11 +91,23 @@ const createSphere = (radius, position) => {
     roughness: 0.5,
     metalness: 0.5,
   });
-  const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  sphere.position.copy(position);
-  sphere.castShadow = true;
-  return sphere;
+  const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  mesh.castShadow = true;
+  mesh.position.copy(position);
+  scene.add(mesh);
+
+  const shape = new CANNON.Sphere(radius);
+  const body = new CANNON.Body({
+    mass: 1,
+    shape,
+    material: defaultMaterial,
+  });
+  body.position = new CANNON.Vec3(0, 3, 0);
+  world.addBody(body);
+  body.position.copy(position);
+  return { mesh, body };
 };
+createSphere(1, { x: 0, y: 3, z: 0 });
 
 function animate() {
   const elapsedTime = clock.getElapsedTime();
