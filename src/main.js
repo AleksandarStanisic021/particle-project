@@ -109,8 +109,36 @@ const createSphere = (radius, position) => {
   objectsToUpdate.push({ mesh: mesh, body: body });
 };
 createSphere(1, { x: 1, y: 3, z: 1 });
+createSphere(0.5, { x: 2, y: 3, z: 2 });
+createSphere(0.75, { x: 3, y: 3, z: 3 });
 
-console.log(objectsToUpdate);
+const createBox = (width, height, depth, position) => {
+  const boxGeometry = new THREE.BoxGeometry(width, height, depth);
+  const boxMaterial = new THREE.MeshStandardMaterial({
+    roughness: 0.5,
+    metalness: 0.5,
+    color: Math.random() * 0xffffff,
+  });
+  const mesh = new THREE.Mesh(boxGeometry, boxMaterial);
+  mesh.castShadow = true;
+  mesh.position.copy(position);
+  scene.add(mesh);
+
+  const shape = new CANNON.Box(
+    new CANNON.Vec3(width / 2, height / 2, depth / 2),
+  );
+  const body = new CANNON.Body({
+    mass: 1,
+    shape,
+    position: new CANNON.Vec3(0, 3, 0),
+    material: defaultMaterial,
+  });
+  body.position.copy(position);
+  world.addBody(body);
+  objectsToUpdate.push({ mesh: mesh, body: body });
+};
+createBox(1, 1, 1, { x: -1, y: 3, z: -1 });
+createBox(1, 2, 2, { x: -2, y: 3, z: -2 });
 
 let oldElapsedTime = 0;
 const clock = new THREE.Clock();
@@ -125,6 +153,7 @@ function animate() {
   world.step(1 / 60, deltaTime, 3);
   for (const object of objectsToUpdate) {
     object.mesh.position.copy(object.body.position);
+
     object.mesh.quaternion.copy(object.body.quaternion);
   }
 
