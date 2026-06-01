@@ -82,14 +82,14 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap;
 pointLight.castShadow = true;
 
-let oldElapsedTime = 0;
-const clock = new THREE.Clock();
+const objectsToUpdate = [];
 
 const createSphere = (radius, position) => {
   const sphereGeometry = new THREE.SphereGeometry(radius, 32, 32);
   const sphereMaterial = new THREE.MeshStandardMaterial({
     roughness: 0.5,
     metalness: 0.5,
+    color: Math.random() * 0xffffff,
   });
   const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
   mesh.castShadow = true;
@@ -100,14 +100,20 @@ const createSphere = (radius, position) => {
   const body = new CANNON.Body({
     mass: 1,
     shape,
+    position: new CANNON.Vec3(0, 3, 0),
     material: defaultMaterial,
   });
   body.position = new CANNON.Vec3(0, 3, 0);
-  world.addBody(body);
   body.position.copy(position);
-  return { mesh, body };
+  world.addBody(body);
+  objectsToUpdate.push({ mesh: mesh, body: body });
 };
-createSphere(1, { x: 0, y: 3, z: 0 });
+createSphere(1, { x: 1, y: 3, z: 1 });
+
+console.log(objectsToUpdate);
+
+let oldElapsedTime = 0;
+const clock = new THREE.Clock();
 
 function animate() {
   const elapsedTime = clock.getElapsedTime();
@@ -117,6 +123,10 @@ function animate() {
   controls.update();
 
   world.step(1 / 60, deltaTime, 3);
+  for (const object of objectsToUpdate) {
+    object.mesh.position.copy(object.body.position);
+    object.mesh.quaternion.copy(object.body.quaternion);
+  }
 
   plane.position.copy(planeBody.position);
   plane.quaternion.copy(planeBody.quaternion);
