@@ -61,12 +61,15 @@ const pointLight = new THREE.PointLight(0xffffff, 10);
 pointLight.position.set(2, 3, 4);
 scene.add(pointLight);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight("#fdc705", 0.5);
 scene.add(ambientLight);
 
 const planeGeometry = new THREE.PlaneGeometry(100, 100);
 const planeMaterial1 = new THREE.MeshStandardMaterial({
-  color: "green",
+  roughness: 0.5,
+  metalness: 0.5,
+  color: "#ad0000",
+
   side: THREE.DoubleSide,
 });
 
