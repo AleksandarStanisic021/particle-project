@@ -84,6 +84,19 @@ pointLight.castShadow = true;
 
 let oldElapsedTime = 0;
 const clock = new THREE.Clock();
+
+const createSphere = (radius, position) => {
+  const sphereGeometry = new THREE.SphereGeometry(radius, 32, 32);
+  const sphereMaterial = new THREE.MeshStandardMaterial({
+    roughness: 0.5,
+    metalness: 0.5,
+  });
+  const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  sphere.position.copy(position);
+  sphere.castShadow = true;
+  return sphere;
+};
+
 function animate() {
   const elapsedTime = clock.getElapsedTime();
   const deltaTime = elapsedTime - oldElapsedTime;
@@ -94,7 +107,7 @@ function animate() {
   world.step(1 / 60, deltaTime, 3);
 
   plane.position.copy(planeBody.position);
-
+  plane.quaternion.copy(planeBody.quaternion);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
