@@ -6,19 +6,17 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
+let m;
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.load(
-  "/models/Duck/glTF/Duck.gltf",
+  "/models/FlightHelmet/glTF/FlightHelmet.gltf",
   (gltf) => {
-    // ✅ ISPRAVNO: Uzimamo gltf.scene, a ne ceo gltf objekat
-    const model = gltf.scene;
-
-    model.scale.set(2, 2, 2);
-    model.position.set(0, 0, 0);
-    scene.add(model);
-
-    console.log("Patkica je uspešno učitana!");
+    // ✅
+    m = gltf.scene;
+    m.scale.set(20, 20, 20);
+    m.position.set(0, 0, 0);
+    scene.add(m);
   },
   undefined,
   (error) => {
@@ -42,7 +40,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
 const terrain = new THREE.PlaneGeometry(50, 50, 100, 100);
-const terrainMaterial = new THREE.MeshStandardMaterial({ color: "#ff8000" });
+const terrainMaterial = new THREE.MeshStandardMaterial({ color: "#0ea01d" });
 const terrainMesh = new THREE.Mesh(terrain, terrainMaterial);
 terrainMesh.rotation.x = -Math.PI / 2;
 scene.add(terrainMesh);
@@ -54,7 +52,9 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 function animate() {
   requestAnimationFrame(animate);
-
+  if (m) {
+    m.rotation.y += 0.01;
+  }
   renderer.render(scene, camera);
 }
 animate();
