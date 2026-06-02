@@ -1,9 +1,30 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const scene = new THREE.Scene();
-console.log(scene);
+let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const gltfLoader = new GLTFLoader();
+gltfLoader.load(
+  "/models/Duck/glTF/Duck.gltf",
+  (gltf) => {
+    // ✅ ISPRAVNO: Uzimamo gltf.scene, a ne ceo gltf objekat
+    const model = gltf.scene;
+
+    model.scale.set(2, 2, 2);
+    model.position.set(0, 0, 0);
+    scene.add(model);
+
+    console.log("Patkica je uspešno učitana!");
+  },
+  undefined,
+  (error) => {
+    console.error("An error occurred while loading the model:", error);
+  },
+);
 
 const camera = new THREE.PerspectiveCamera(
   75,
