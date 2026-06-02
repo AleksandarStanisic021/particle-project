@@ -40,7 +40,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
 const terrain = new THREE.PlaneGeometry(50, 50, 100, 100);
-const terrainMaterial = new THREE.MeshStandardMaterial({ color: "#0ea01d" });
+const terrainMaterial = new THREE.MeshStandardMaterial({ color: "#023b08" });
 const terrainMesh = new THREE.Mesh(terrain, terrainMaterial);
 terrainMesh.rotation.x = -Math.PI / 2;
 scene.add(terrainMesh);
