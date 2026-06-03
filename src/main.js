@@ -36,6 +36,12 @@ const sphere3 = new THREE.Mesh(
 sphere3.position.set(0, 0, 0);
 scene.add(sphere3);
 
+const mouse = new THREE.Vector2();
+window.addEventListener("mousemove", (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+
 camera.position.set(0, 5, 10);
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector(".webgl"),
@@ -56,6 +62,8 @@ const animate = function () {
   raycaster.set(rayOrigin, rayDirection);
 
   const ojectsToTest = [sphere1, sphere2, sphere3];
+  /*
+
 
   const intersects = raycaster.intersectObjects(ojectsToTest);
 
@@ -64,6 +72,15 @@ const animate = function () {
   }
   for (const intersect of intersects) {
     intersect.object.material.color.set("#0000ff");
+  }*/
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(ojectsToTest);
+  if (intersects.length > 0) {
+    intersects[0].object.material.color.set("#ff00e1");
+  } else {
+    for (let object of ojectsToTest) {
+      object.material.color.set("#ff0000");
+    }
   }
 
   let delta = clock.getElapsedTime();
