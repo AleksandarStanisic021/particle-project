@@ -53,14 +53,21 @@ const rayDirection = new THREE.Vector3(10, 0, 0);
 rayDirection.normalize();
 raycaster.set(rayOrigin, rayDirection);
 const intersect = raycaster.intersectObject(sphere3);
-console.log(intersect);
-const intersects = raycaster.intersectObjects([sphere1, sphere2, sphere3]);
-console.log(intersects);
 
+const intersects = raycaster.intersectObjects([sphere1, sphere2, sphere3]);
+if (intersects.length > 0) {
+  console.log("Intersection detected with:", intersects[0].object);
+}
+
+let clock = new THREE.Clock();
 const animate = function () {
+  let delta = clock.getElapsedTime();
+  sphere1.position.y = Math.sin(delta * 0.5) * 2;
+  sphere2.position.y = Math.sin(delta * 0.5) * 2;
+  sphere3.position.y = Math.sin(delta * 0.5) * 2;
+
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 };
 
 animate();
-
