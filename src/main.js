@@ -86,6 +86,7 @@ const animate = function () {
     }
   }
 */
+
   let delta = clock.getElapsedTime();
 
   requestAnimationFrame(animate);
