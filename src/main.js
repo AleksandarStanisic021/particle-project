@@ -57,6 +57,15 @@ const animate = function () {
 
   const ojectsToTest = [sphere1, sphere2, sphere3];
 
+  const intersects = raycaster.intersectObjects(ojectsToTest);
+
+  for (let object of ojectsToTest) {
+    object.material.color.set("#ff0000");
+  }
+  for (const intersect of intersects) {
+    intersect.object.material.color.set("#0000ff");
+  }
+
   let delta = clock.getElapsedTime();
   sphere1.position.y = Math.sin(delta * 0.3) * 2;
   sphere2.position.y = Math.sin(delta * 0.8) * 2;
