@@ -6,10 +6,11 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 let model = null;
 const gltfLoader = new GLTFLoader();
 gltfLoader.load("/models/FlightHelmet/glTF/FlightHelmet.gltf", (gltf) => {
-  model = gltf.scene;
+  model = gltf?.scene;
+  console.log(gltf.scene);
   if (model !== null) {
     model.scale.set(10, 10, 10);
-    model.position.set(0, -1, 0);
+    model.position.set(0, -4, 0);
     scene.add(model);
   }
 });
