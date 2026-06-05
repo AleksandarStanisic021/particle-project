@@ -14,6 +14,7 @@ const camera = new THREE.PerspectiveCamera(
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 5, 5);
 scene.add(light);
+
 /*
 const sphere1 = new THREE.Mesh(
   new THREE.SphereGeometry(0.5, 32, 32),
@@ -43,6 +44,12 @@ window.addEventListener("mousemove", (event) => {
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 });
 */
+
+let mesh = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshStandardMaterial({ color: "#4d06f3" }),
+);
+scene.add(mesh);
 
 camera.position.set(0, 5, 10);
 const renderer = new THREE.WebGLRenderer({
