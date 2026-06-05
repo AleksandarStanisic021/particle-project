@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
+const scene = new THREE.Scene();
+
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 const environmentMapTexture = cubeTextureLoader.load([
   "/environmentMaps/0/px.png",
@@ -25,7 +27,17 @@ gltfLoader.load("/models/FlightHelmet/glTF/FlightHelmet.gltf", (gltf) => {
   }
 });
 
-const scene = new THREE.Scene();
+const ballGeometry = new THREE.SphereGeometry(1.4, 32, 32);
+const ballMaterial = new THREE.MeshStandardMaterial({
+  color: "#f4e5e5",
+  roughness: 0.1,
+  metalness: 0.3,
+  envMap: environmentMapTexture,
+});
+const ball = new THREE.Mesh(ballGeometry, ballMaterial);
+ball.position.set(-5, 0, 0);
+scene.add(ball);
+
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 const camera = new THREE.PerspectiveCamera(
@@ -34,6 +46,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000,
 );
+
+scene.environment = environmentMapTexture;
 scene.background = environmentMapTexture;
 
 const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -85,6 +99,7 @@ const raycaster = new THREE.Raycaster();
 
 let clock = new THREE.Clock();
 const animate = function () {
+  controls.update();
   /*
   const rayOrigin = new THREE.Vector3(-3, 0, 0);
   const rayDirection = new THREE.Vector3(1, 0, 0).normalize();
