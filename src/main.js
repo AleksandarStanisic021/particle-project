@@ -1,6 +1,18 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
+let model = null;
+const gltfLoader = new GLTFLoader();
+gltfLoader.load("/models/FlightHelmet/glTF/FlightHelmet.gltf", (gltf) => {
+  model = gltf.scene;
+  if (model !== null) {
+    model.scale.set(10, 10, 10);
+    model.position.set(0, -1, 0);
+    scene.add(model);
+  }
+});
 
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -44,12 +56,6 @@ window.addEventListener("mousemove", (event) => {
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 });
 */
-
-let mesh = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshStandardMaterial({ color: "#4d06f3" }),
-);
-scene.add(mesh);
 
 camera.position.set(0, 5, 10);
 const renderer = new THREE.WebGLRenderer({
