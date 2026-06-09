@@ -31,7 +31,11 @@ light.position.set(5, 5, 5);
 scene.add(light);
 
 const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-const ballMaterial = new THREE.MeshStandardMaterial({ color: "#ff0000" });
+const ballMaterial = new THREE.MeshStandardMaterial({
+  color: "#ff0000",
+  metalness: 0.9,
+  roughness: 0.5,
+});
 const ballMesh = new THREE.Mesh(ballGeometry, ballMaterial);
 ballMesh.position.set(0, 0.5, 0);
 scene.add(ballMesh);
