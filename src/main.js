@@ -48,6 +48,9 @@ function animate() {
   controls.update();
   controls.enableDamping = true;
 
+  // Rotate the ball for some animation
+  ballMesh.rotation.y += 0.01;
+
   renderer.render(scene, camera);
 }
 animate();
