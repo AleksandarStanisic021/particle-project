@@ -21,7 +21,29 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
 const terrain = new THREE.PlaneGeometry(5, 5, 10, 10);
-const terrainMaterial = new THREE.MeshStandardMaterial({ color: "#ffffff" });
+const terrainMaterial = new THREE.RawShaderMaterial({
+  vertexShader: `
+  uniform mat4 projectionMatrix;
+  uniform mat4 viewMatrix;
+  uniform mat4 modelMatrix;
+
+  attribute vec3 position;
+
+  void main()
+  {
+   gl_Position=projectionMatrix*viewMatrix*modelMatrix*vec4(position,1);
+  }
+
+  `,
+  fragmentShader: `
+  precision mediump float;
+  void main()
+  {
+  gl_FragColor=vec4(1.0,1.0,0.5,0.6); 
+  }
+  `,
+});
+
 const terrainMesh = new THREE.Mesh(terrain, terrainMaterial);
 terrainMesh.rotation.x = -Math.PI / 2;
 scene.add(terrainMesh);
