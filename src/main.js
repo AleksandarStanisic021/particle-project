@@ -54,7 +54,7 @@ scene.add(light);
 
 const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 const ballMaterial = new THREE.MeshStandardMaterial({
-  color: "#ff00c3",
+  color: "#00ff26",
   metalness: 0.9,
   roughness: 0.5,
 });
