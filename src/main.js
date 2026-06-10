@@ -1,6 +1,9 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import vertexShader from "./shaders/vertex.glsl";
+import fragmentShader from "./shaders/fragment.glsl";
+
 
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -22,26 +25,9 @@ renderer.render(scene, camera);
 
 const terrain = new THREE.PlaneGeometry(5, 5, 10, 10);
 const terrainMaterial = new THREE.RawShaderMaterial({
-  vertexShader: `
-  uniform mat4 projectionMatrix;
-  uniform mat4 viewMatrix;
-  uniform mat4 modelMatrix;
-
-  attribute vec3 position;
-
-  void main()
-  {
-   gl_Position=projectionMatrix*viewMatrix*modelMatrix*vec4(position,1);
-  }
-
-  `,
-  fragmentShader: `
-  precision mediump float;
-  void main()
-  {
-  gl_FragColor=vec4(1.0,0.0,0.0,1.0); 
-  }
-  `,
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader,
+  side: THREE.DoubleSide,
 });
 
 const terrainMesh = new THREE.Mesh(terrain, terrainMaterial);

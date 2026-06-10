@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "cannon": "^0.6.2",
-    "three": "^0.184.0"
+    "three": "^0.184.0",
+    "vite-plugin-glsl": "^1.6.0"
   }
 }
