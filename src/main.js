@@ -56,6 +56,7 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
   controls.enableDamping = true;
+  terrainMaterial.uniforms.time.value += 0.01;
   renderer.render(scene, camera);
 }
 animate();

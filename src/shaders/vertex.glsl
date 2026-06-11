@@ -1,17 +1,19 @@
 
-  uniform mat4 projectionMatrix;
-  uniform mat4 viewMatrix;
-  uniform mat4 modelMatrix;
-  uniform float time;
+precision mediump float;
 
- attribute vec3 position;
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
+uniform float time;
 
-  void main()
-  {
-    vec4 modelPosition=modelMatrix*vec4(position,1);
-    modelPosition.y+=sin(modelPosition.x*10.0+time)*0.1;
+attribute vec3 position;
 
-   gl_Position=projectionMatrix*viewMatrix*modelPosition;
-  }
+void main()
+{
+    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+    modelPosition.y += sin(modelPosition.x * 10.0 + time) * 0.1;
+
+    gl_Position = projectionMatrix * viewMatrix * modelPosition;
+}
 
 
