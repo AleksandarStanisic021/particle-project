@@ -4,7 +4,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import vertexShader from "./shaders/vertex.glsl";
 import fragmentShader from "./shaders/fragment.glsl";
 
-
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -28,6 +27,9 @@ const terrainMaterial = new THREE.RawShaderMaterial({
   vertexShader: vertexShader,
   fragmentShader: fragmentShader,
   side: THREE.DoubleSide,
+  uniforms: {
+    time: { value: 10 },
+  },
 });
 
 const terrainMesh = new THREE.Mesh(terrain, terrainMaterial);
