@@ -22,8 +22,11 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const plane = new THREE.PlaneGeometry(5, 5, 10, 10);
-const planeMaterial = new THREE.MeshBasicMaterial({
-  color: "#00ff26",
+const planeMaterial = new THREE.ShaderMaterial({
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader,
+  side: THREE.DoubleSide,
+  transparent: true,
 });
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
