@@ -2,7 +2,7 @@
 varying vec2 vUv;
 void main()
 {
-     //float str=vUv.x;
+     float str=vUv.x;
     //float str=1.0-vUv.y;
     //float str=vUv.y*10.9;
    // float str=vUv.y*10.0;
