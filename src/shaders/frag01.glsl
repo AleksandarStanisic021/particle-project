@@ -7,10 +7,12 @@ void main()
     //float str=vUv.y*10.9;
    // float str=vUv.y*10.0;
 
-
-
+/*
     float str=mod(vUv.x*10.0,1.0);//cool
-    str=step(0.28,str);
+    str=step(0.9,str);
+    float str1=mod(vUv.y*10.0,1.0);
+    str+=step(0.9,str1);
+*/
 
 
     gl_FragColor = vec4(str, str,str, 1.0);   
