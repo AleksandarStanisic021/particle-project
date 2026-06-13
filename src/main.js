@@ -22,6 +22,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const plane = new THREE.PlaneGeometry(5, 5, 10, 10);
+console.log(plane.attributes);
 const planeMaterial = new THREE.ShaderMaterial({
   vertexShader: vertexShader,
   fragmentShader: fragmentShader,
