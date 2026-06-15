@@ -1,8 +1,8 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import vertexShader from "./shaders/vert01.glsl";
-import fragmentShader from "./shaders/frag01.glsl";
+import vertexShader from "./shaders/vert02.glsl";
+import fragmentShader from "./shaders/frag02.glsl";
 
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
