@@ -49,7 +49,7 @@ const clock = new THREE.Clock();
 function animate() {
   let elapsedTime = clock.getElapsedTime();
   planeMaterial.uniforms.uTime.value = elapsedTime;
-  console.log(planeMaterial.uniforms.uTime.value);
+
   requestAnimationFrame(animate);
   controls.update();
   controls.enableDamping = true;
