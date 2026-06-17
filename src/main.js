@@ -30,6 +30,7 @@ const planeMaterial = new THREE.ShaderMaterial({
   side: THREE.DoubleSide,
   transparent: true,
   uniforms: {
+    uTime: { value: 0.5 },
     vBigWave: { value: 0.2 },
   },
 });
@@ -43,8 +44,12 @@ planeMesh.rotation.x = -Math.PI / 2;
 scene.add(planeMesh);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+const clock = new THREE.Clock();
 
 function animate() {
+  let elapsedTime = clock.getElapsedTime();
+  planeMaterial.uniforms.uTime.value = elapsedTime;
+  console.log(planeMaterial.uniforms.uTime.value);
   requestAnimationFrame(animate);
   controls.update();
   controls.enableDamping = true;
