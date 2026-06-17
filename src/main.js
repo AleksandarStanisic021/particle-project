@@ -29,6 +29,9 @@ const planeMaterial = new THREE.ShaderMaterial({
   fragmentShader: fragmentShader,
   side: THREE.DoubleSide,
   transparent: true,
+  uniforms: {
+    vBigWave: { value: 0.2 },
+  },
 });
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
