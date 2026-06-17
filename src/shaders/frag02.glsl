@@ -1,5 +1,13 @@
 
+uniform vec3 color1;
+uniform vec3 color2;
+
+varying float velevation;
+
+
 void main()
 {
-    gl_FragColor = vec4(1.0, 0.0,0.0, 1.0);   
+vec3 color=mix(color1,color2,3.0*velevation);
+
+    gl_FragColor = vec4(color,1);   
 }

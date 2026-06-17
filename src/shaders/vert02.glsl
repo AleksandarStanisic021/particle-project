@@ -1,6 +1,8 @@
 
 uniform float vBigWave;
 uniform float uTime;
+varying float velevation;
+
 void main()
 {
     
@@ -8,8 +10,10 @@ void main()
     float elevation=sin(modelPosition.x+uTime)*1.33*
     sin(modelPosition.z+uTime)*vBigWave;
     modelPosition.y+=elevation;
+    modelPosition.z+=elevation;
 
     gl_Position = projectionMatrix * viewMatrix * modelPosition;
+    velevation=elevation;
 }
     
 

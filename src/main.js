@@ -4,6 +4,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import vertexShader from "./shaders/vert02.glsl";
 import fragmentShader from "./shaders/frag02.glsl";
 
+let color1 = "#0099f8";
+let color2 = "#2410b9";
+
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -32,6 +35,8 @@ const planeMaterial = new THREE.ShaderMaterial({
   uniforms: {
     uTime: { value: 0.5 },
     vBigWave: { value: 0.2 },
+    color1: { value: new THREE.Color(color1) },
+    color2: { value: new THREE.Color(color2) },
   },
 });
 
