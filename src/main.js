@@ -4,8 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import vertexShader from "./shaders/vert02.glsl";
 import fragmentShader from "./shaders/frag02.glsl";
 
-let color1 = "#0099f8";
-let color2 = "#2410b9";
+let color1 = "#09be91";
+let color2 = "#09d431";
 
 const scene = new THREE.Scene();
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
